@@ -1,0 +1,36 @@
+---
+- name: Install Nginx
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+    update_cache: yes
+
+- name: Create deployment_environment document root
+  ansible.builtin.file:
+    path: "{{ nginx_document_root }}/{{ deployment_environment }}"
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: '0755'
+
+- name: Deploy Nginx virtual host
+  ansible.builtin.template:
+    src: finedge.conf.j2
+    dest: "{{ nginx_config_dir }}/finedge_{{ deployment_environment }}.conf"
+    mode: '0644'
+  notify: Restart Nginx
+
+- name: Enable Nginx virtual host
+  ansible.builtin.file:
+    src: "{{ nginx_config_dir }}/finedge_{{ deployment_environment }}.conf"
+    dest: "{{ nginx_enabled_dir }}/finedge_{{ deployment_environment }}.conf"
+    state: link
+  notify: Restart Nginx
+
+- name: Deploy deployment_environment webpage
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: "{{ nginx_document_root }}/{{ deployment_environment }}/index.html"
+    owner: www-data
+    group: www-data
+    mode: '0644'

@@ -1,0 +1,8 @@
+deployment_environment: staging
+nginx_port: 8082
+site_title: FinEdge Staging Environment
+db_name: finedgedb_staging
+db_user: finedge_staging
+db_password: "{{ vault_staging_db_password }}"
+mysql_max_connections: 100
+mysql_buffer_pool_size: 96M

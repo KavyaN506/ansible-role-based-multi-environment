@@ -1,0 +1,21 @@
+---
+- name: Configure FinEdge Development Environment
+  hosts: dev
+  become: yes
+  roles:
+    - webserver
+    - database
+
+- name: Configure FinEdge Staging Environment
+  hosts: staging
+  become: yes
+  roles:
+    - webserver
+    - database
+
+- name: Configure FinEdge Production Environment
+  hosts: prod
+  become: yes
+  roles:
+    - webserver
+    - database

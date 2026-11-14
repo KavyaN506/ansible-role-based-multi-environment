@@ -1,0 +1,8 @@
+deployment_environment: prod
+nginx_port: 8083
+site_title: FinEdge Production Environment
+db_name: finedgedb_prod
+db_user: finedge_prod
+db_password: "{{ vault_prod_db_password }}"
+mysql_max_connections: 150
+mysql_buffer_pool_size: 128M

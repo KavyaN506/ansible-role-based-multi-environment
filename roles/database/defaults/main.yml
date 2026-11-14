@@ -1,0 +1,5 @@
+---
+mysql_service_name: mysql
+mysql_config_dir: /etc/mysql/mysql.conf.d
+mysql_config_file: 99-finedge.cnf
+mysql_socket: /var/run/mysqld/mysqld.sock

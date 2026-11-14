@@ -1,0 +1,8 @@
+deployment_environment: dev
+nginx_port: 8081
+site_title: FinEdge Development Environment
+db_name: finedgedb_dev
+db_user: finedge_dev
+db_password: "{{ vault_dev_db_password }}"
+mysql_max_connections: 50
+mysql_buffer_pool_size: 64M

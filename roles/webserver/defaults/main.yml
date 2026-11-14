@@ -1,0 +1,5 @@
+---
+nginx_service_name: nginx
+nginx_config_dir: /etc/nginx/sites-available
+nginx_enabled_dir: /etc/nginx/sites-enabled
+nginx_document_root: /var/www/finedge

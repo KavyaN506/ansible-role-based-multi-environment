@@ -1,0 +1,41 @@
+---
+- name: Install MySQL server and Python connector
+  ansible.builtin.apt:
+    name:
+      - mysql-server
+      - python3-pymysql
+    state: present
+    update_cache: yes
+
+- name: Ensure MySQL is running
+  ansible.builtin.service:
+    name: "{{ mysql_service_name }}"
+    state: started
+    enabled: yes
+
+- name: Deploy environment-specific MySQL configuration
+  ansible.builtin.template:
+    src: finedge.cnf.j2
+    dest: "{{ mysql_config_dir }}/{{ mysql_config_file }}"
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart MySQL
+
+- name: Create environment database
+  community.mysql.mysql_db:
+    name: "{{ db_name }}"
+    state: present
+    login_unix_socket: "{{ mysql_socket }}"
+
+- name: Create environment database user
+  community.mysql.mysql_user:
+    name: "{{ db_user }}"
+    plugin: caching_sha2_password
+    plugin_auth_string: "{{ db_password }}"
+    salt: "1234567890abcdefghij"
+    host: localhost
+    priv: "{{ db_name }}.*:ALL"
+    state: present
+    login_unix_socket: "{{ mysql_socket }}"
+  no_log: true

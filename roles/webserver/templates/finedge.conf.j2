@@ -1,0 +1,14 @@
+server {
+    listen {{ nginx_port }};
+    server_name _;
+
+    root {{ nginx_document_root }}/{{ deployment_environment }};
+    index index.html;
+
+    access_log /var/log/nginx/finedge_{{ deployment_environment }}_access.log;
+    error_log /var/log/nginx/finedge_{{ deployment_environment }}_error.log;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ site_title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #eef2f7;
+            padding: 80px;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+        h1 { color: #174ea6; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ site_title }}</h1>
+        <p>Welcome to FinEdge Bank.</p>
+        <p>Environment: {{ deployment_environment | upper }}</p>
+        <p>Nginx Port: {{ nginx_port }}</p>
+        <p>Status: Successfully deployed using Ansible.</p>
+    </div>
+</body>
+</html>
